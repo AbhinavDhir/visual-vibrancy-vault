@@ -5,21 +5,30 @@ import { Button } from "@/components/ui/button";
 interface ContactCardProps {
   name: string;
   avatar?: string;
-  isOnline?: boolean;
-  location?: string;
-  lastSeen?: string;
+  status: "Free" | "Do not Disturb" | "In class";
   onClick?: () => void;
 }
 
 export const ContactCard = ({ 
   name, 
   avatar, 
-  isOnline = false, 
-  location = "Unknown", 
-  lastSeen = "Recently", 
+  status, 
   onClick 
 }: ContactCardProps) => {
   const initials = name.split(' ').map(n => n.charAt(0)).join('').toUpperCase().slice(0, 2);
+  
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "Free":
+        return "text-green-500";
+      case "Do not Disturb":
+        return "text-red-500";
+      case "In class":
+        return "text-yellow-500";
+      default:
+        return "text-muted-foreground";
+    }
+  };
 
   return (
     <div 
@@ -34,10 +43,6 @@ export const ContactCard = ({
               {initials}
             </AvatarFallback>
           </Avatar>
-          
-          {isOnline && (
-            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-accent rounded-full border-2 border-background animate-glow-pulse" />
-          )}
         </div>
         
         <div className="flex-1 min-w-0">
@@ -45,20 +50,15 @@ export const ContactCard = ({
             {name}
           </h3>
           
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <MapPin className="h-3 w-3 text-accent" />
-            <span className="truncate">{location}</span>
+          <div className="flex items-center gap-2 text-sm">
+            <div className={`w-2 h-2 rounded-full ${status === "Free" ? "bg-green-500" : status === "Do not Disturb" ? "bg-red-500" : "bg-yellow-500"}`} />
+            <span className={`truncate ${getStatusColor(status)}`}>{status}</span>
           </div>
-          
-          <p className="text-xs text-muted-foreground mt-1">{lastSeen}</p>
         </div>
         
-        <div className="flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 hover:bg-primary/20">
-            <MessageCircle className="h-4 w-4" />
-          </Button>
-          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 hover:bg-accent/20">
-            <Phone className="h-4 w-4" />
+        <div className="flex items-center gap-2">
+          <Button size="sm" variant="ghost" className="h-9 w-9 p-0 hover:bg-primary/20">
+            <MapPin className="h-4 w-4" />
           </Button>
         </div>
       </div>

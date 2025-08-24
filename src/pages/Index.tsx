@@ -7,60 +7,44 @@ interface Contact {
   id: string;
   name: string;
   avatar?: string;
-  isOnline: boolean;
-  location: string;
-  lastSeen: string;
+  status: "Free" | "Do not Disturb" | "In class";
 }
 
 const mockContacts: Contact[] = [
   {
     id: "1",
     name: "Abhinav",
-    isOnline: true,
-    location: "New Delhi, India",
-    lastSeen: "Online now",
+    status: "Free",
   },
   {
     id: "2", 
     name: "Devansh",
-    isOnline: false,
-    location: "Mumbai, India",
-    lastSeen: "2 hours ago",
+    status: "Do not Disturb",
   },
   {
     id: "3",
     name: "Divyam", 
-    isOnline: true,
-    location: "Bangalore, India",
-    lastSeen: "Online now",
+    status: "In class",
   },
   {
     id: "4",
     name: "Shivansh",
-    isOnline: false,
-    location: "Pune, India", 
-    lastSeen: "5 minutes ago",
+    status: "Free",
   },
   {
     id: "5",
     name: "Vanshika",
-    isOnline: true,
-    location: "Chennai, India",
-    lastSeen: "Online now",
+    status: "Do not Disturb",
   },
   {
     id: "6", 
     name: "Eva",
-    isOnline: false,
-    location: "Kolkata, India",
-    lastSeen: "1 hour ago",
+    status: "Free",
   },
   {
     id: "7",
     name: "Shashwat",
-    isOnline: false,
-    location: "Hyderabad, India",
-    lastSeen: "3 days ago",
+    status: "In class",
   },
 ];
 
@@ -75,7 +59,7 @@ const Index = () => {
     } else {
       const filtered = mockContacts.filter(contact =>
         contact.name.toLowerCase().includes(query.toLowerCase()) ||
-        contact.location.toLowerCase().includes(query.toLowerCase())
+        contact.status.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredContacts(filtered);
     }
@@ -100,10 +84,10 @@ const Index = () => {
           <div className="flex items-center justify-between mb-6">
             <div className="animate-fade-in">
               <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Your Contacts
+                Your Friends
               </h1>
               <p className="text-muted-foreground text-sm mt-1">
-                {filteredContacts.filter(c => c.isOnline).length} online • {filteredContacts.length} total
+                {filteredContacts.length} friends
               </p>
             </div>
           </div>
@@ -119,9 +103,7 @@ const Index = () => {
                 >
                   <ContactCard
                     name={contact.name}
-                    isOnline={contact.isOnline}
-                    location={contact.location}
-                    lastSeen={contact.lastSeen}
+                    status={contact.status}
                     onClick={() => handleContactClick(contact)}
                   />
                 </div>
