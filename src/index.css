@@ -2,127 +2,120 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    /* Modern gradient background system */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-
-    /* Card system with glassmorphism */
-    --card: 240 10% 3.9%/80%;
-    --card-foreground: 0 0% 98%;
-    --card-glass: 240 5% 15%/60%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    /* Beautiful gradient primary colors */
-    --primary: 262 83% 58%;
-    --primary-glow: 270 91% 65%;
-    --primary-foreground: 0 0% 98%;
-
-    /* Accent system with cyan touches */
-    --accent: 189 94% 43%;
-    --accent-glow: 180 100% 50%;
-    --accent-foreground: 240 10% 3.9%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 262 83% 58%;
-
-    /* Design system variables */
+    /* WYB Dark Theme - Cyberpunk Aesthetic */
+    --background: 0 0% 7%;              /* Deep charcoal #121212 */
+    --foreground: 0 0% 92%;             /* Off-white #EAEAEA */
+    --card: 0 0% 12%;                   /* Slightly lighter dark grey #1E1E1E */
+    --card-foreground: 0 0% 92%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 92%;
+    
+    /* Primary: Electric Blue */
+    --primary: 195 100% 50%;            /* Electric blue #00BFFF */
+    --primary-glow: 195 100% 60%;       /* Brighter electric blue */
+    --primary-foreground: 0 0% 7%;
+    
+    /* Secondary: Warm Magenta */
+    --secondary: 300 100% 50%;          /* Magenta #FF00FF */
+    --secondary-glow: 300 100% 60%;     /* Brighter magenta */
+    --secondary-foreground: 0 0% 92%;
+    
+    /* Accent: Glowing Yellow */
+    --accent: 60 100% 50%;              /* Yellow #FFFF00 */
+    --accent-glow: 60 100% 60%;         /* Brighter yellow */
+    --accent-foreground: 0 0% 7%;
+    
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 92%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 195 100% 50%;
     --radius: 1rem;
+
+    /* Glass Effects */
+    --card-glass: 0 0% 12% / 0.8;
+    --card-glass-border: 0 0% 100% / 0.1;
     
-    /* Custom gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
-    --gradient-bg: linear-gradient(135deg, hsl(240 10% 3.9%), hsl(260 10% 7%));
-    --gradient-card: linear-gradient(135deg, hsl(240 5% 15%/60%), hsl(260 5% 20%/40%));
+    /* Gradients - Cyberpunk Style */
+    --gradient-primary: linear-gradient(135deg, hsl(195 100% 50%), hsl(195 100% 35%));
+    --gradient-secondary: linear-gradient(135deg, hsl(300 100% 50%), hsl(300 100% 35%));
+    --gradient-accent: linear-gradient(135deg, hsl(60 100% 50%), hsl(60 100% 35%));
+    --gradient-bg: linear-gradient(135deg, hsl(0 0% 7%), hsl(0 0% 10%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 12% / 0.8), hsl(0 0% 15% / 0.6));
+    --gradient-map: linear-gradient(180deg, hsl(220 50% 15%), hsl(220 30% 8%));
     
-    /* Shadows */
-    --shadow-glow: 0 8px 32px hsl(var(--primary)/20%);
-    --shadow-card: 0 4px 24px hsl(0 0% 0%/40%);
-    --shadow-float: 0 8px 40px hsl(0 0% 0%/60%);
-    
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Glow Shadows - Neon Effects */
+    --shadow-glow-primary: 0 0 20px hsl(195 100% 50% / 0.4), 0 0 40px hsl(195 100% 50% / 0.2);
+    --shadow-glow-secondary: 0 0 20px hsl(300 100% 50% / 0.4), 0 0 40px hsl(300 100% 50% / 0.2);
+    --shadow-glow-accent: 0 0 20px hsl(60 100% 50% / 0.4), 0 0 40px hsl(60 100% 50% / 0.2);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
+    --shadow-float: 0 8px 32px hsl(0 0% 0% / 0.4);
+    --shadow-ping: 0 0 0 0 hsl(60 100% 50% / 0.7);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar */
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 92%;
+    --sidebar-primary: 195 100% 50%;
+    --sidebar-primary-foreground: 0 0% 7%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 92%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 195 100% 50%;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+/* Custom Animations for WYB */
+@keyframes ping-pulse {
+  0% {
+    box-shadow: var(--shadow-ping);
+    transform: scale(1);
   }
+  50% {
+    box-shadow: 0 0 0 20px hsl(60 100% 50% / 0);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: var(--shadow-ping);
+    transform: scale(1);
+  }
+}
 
-  body {
-    @apply bg-background text-foreground;
+@keyframes sonar-wave {
+  0% {
+    transform: scale(1);
+    opacity: 1;
   }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes avatar-pulse {
+  0%, 100% {
+    box-shadow: var(--shadow-glow-primary);
+  }
+  50% {
+    box-shadow: 0 0 30px hsl(195 100% 50% / 0.6), 0 0 60px hsl(195 100% 50% / 0.3);
+  }
+}
+
+@keyframes neon-glow {
+  0%, 100% {
+    filter: brightness(1) drop-shadow(0 0 10px currentColor);
+  }
+  50% {
+    filter: brightness(1.2) drop-shadow(0 0 20px currentColor);
+  }
+}
+
+/* Global Styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
 }

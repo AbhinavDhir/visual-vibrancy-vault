@@ -7,13 +7,15 @@ interface ContactCardProps {
   avatar?: string;
   status: "Free" | "Do not Disturb" | "In class";
   onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
 export const ContactCard = ({ 
   name, 
   avatar, 
   status, 
-  onClick 
+  onClick,
+  style 
 }: ContactCardProps) => {
   const initials = name.split(' ').map(n => n.charAt(0)).join('').toUpperCase().slice(0, 2);
   
@@ -32,39 +34,35 @@ export const ContactCard = ({
 
   return (
     <div 
-      className="group relative p-4 bg-gradient-card backdrop-blur-glass rounded-2xl border border-white/10 shadow-card hover:shadow-float transition-all duration-300 hover:scale-[1.02] cursor-pointer animate-scale-in"
+      className="flex items-center gap-4 p-4 bg-gradient-card backdrop-blur-lg rounded-2xl border border-card-glass-border shadow-card hover:shadow-glow-primary transition-all duration-300 cursor-pointer group animate-scale-in hover:scale-105"
+      style={style}
       onClick={onClick}
     >
-      <div className="flex items-center gap-4">
-        <div className="relative">
-          <Avatar className="h-14 w-14 ring-2 ring-white/20 transition-all duration-300 group-hover:ring-primary/50">
-            <AvatarImage src={avatar} alt={name} />
-            <AvatarFallback className="bg-gradient-primary text-primary-foreground font-semibold text-lg">
-              {initials}
-            </AvatarFallback>
-          </Avatar>
+      {/* Avatar */}
+      <div className="relative flex-shrink-0">
+        <div className="w-12 h-12 rounded-full bg-gradient-secondary flex items-center justify-center text-secondary-foreground font-bold text-lg shadow-glow-secondary animate-avatar-pulse">
+          {initials}
         </div>
-        
-        <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-lg text-foreground truncate mb-1 group-hover:text-primary transition-colors duration-300">
-            {name}
-          </h3>
-          
-          <div className="flex items-center gap-2 text-sm">
-            <div className={`w-2 h-2 rounded-full ${status === "Free" ? "bg-green-500" : status === "Do not Disturb" ? "bg-red-500" : "bg-yellow-500"}`} />
-            <span className={`truncate ${getStatusColor(status)}`}>{status}</span>
-          </div>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <Button size="sm" variant="ghost" className="h-9 w-9 p-0 hover:bg-primary/20">
-            <MapPin className="h-4 w-4" />
-          </Button>
-        </div>
+        {/* Status Indicator */}
+        <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-background ${status === "Free" ? "bg-primary" : status === "Do not Disturb" ? "bg-secondary" : "bg-accent"} shadow-sm`} />
       </div>
       
-      {/* Subtle gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300 pointer-events-none" />
+      {/* Contact Info */}
+      <div className="flex-1 min-w-0">
+        <h3 className="font-bold text-foreground group-hover:text-primary transition-colors duration-300 text-lg">
+          {name}
+        </h3>
+        <p className="text-sm text-muted-foreground capitalize font-medium">
+          {status}
+        </p>
+      </div>
+      
+      {/* Location Button */}
+      <div className="flex-shrink-0">
+        <div className="w-12 h-12 bg-gradient-accent/20 rounded-xl flex items-center justify-center text-accent group-hover:bg-gradient-accent group-hover:text-accent-foreground group-hover:shadow-glow-accent transition-all duration-300 hover:scale-110 animate-neon-glow">
+          <MapPin className="h-6 w-6" />
+        </div>
+      </div>
     </div>
   );
 };

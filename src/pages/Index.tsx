@@ -71,57 +71,46 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-bg">
+    <div className="min-h-screen bg-gradient-bg text-foreground">
       {/* Header */}
-      <div className="sticky top-0 z-40 p-4 bg-gradient-bg/80 backdrop-blur-glass border-b border-white/5">
-        <SearchBar onSearch={handleSearch} placeholder="Search your contacts..." />
+      <div className="sticky top-0 z-40 p-4 bg-background/80 backdrop-blur-lg border-b border-card-glass-border">
+        <div className="animate-fade-in">
+          <h1 className="text-3xl font-bold text-primary animate-neon-glow">
+            Connections
+          </h1>
+          <p className="text-muted-foreground text-sm mt-1 font-medium">
+            {filteredContacts.length} friends in your network
+          </p>
+        </div>
       </div>
 
       {/* Main Content */}
       <main className="flex-1 p-4 pb-32">
-        <div className="max-w-md mx-auto space-y-4">
-          {/* Online Status Header */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="animate-fade-in">
-              <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Your Friends
-              </h1>
-              <p className="text-muted-foreground text-sm mt-1">
-                {filteredContacts.length} friends
-              </p>
-            </div>
+        <div className="max-w-md mx-auto space-y-6">
+          {/* Search Bar */}
+          <SearchBar onSearch={handleSearch} placeholder="Search connections..." />
+          
+          {/* Connections List */}
+          <div className="space-y-4 animate-slide-up">
+            {filteredContacts.map((contact, index) => (
+              <ContactCard
+                key={contact.id}
+                name={contact.name}
+                avatar={contact.avatar}
+                status={contact.status}
+                onClick={() => handleContactClick(contact)}
+                style={{ animationDelay: `${index * 100}ms` }}
+              />
+            ))}
           </div>
-
-          {/* Contacts List */}
-          <div className="space-y-3">
-            {filteredContacts.length > 0 ? (
-              filteredContacts.map((contact, index) => (
-                <div
-                  key={contact.id}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                  className="animate-slide-up"
-                >
-                  <ContactCard
-                    name={contact.name}
-                    status={contact.status}
-                    onClick={() => handleContactClick(contact)}
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="text-center py-12 animate-fade-in">
-                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-card rounded-full flex items-center justify-center">
-                  <span className="text-2xl">🔍</span>
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">
-                  No contacts found
-                </h3>
-                <p className="text-muted-foreground">
-                  Try adjusting your search query
-                </p>
+          
+          {filteredContacts.length === 0 && (
+            <div className="text-center py-12 animate-fade-in">
+              <div className="text-muted-foreground">
+                No connections found matching "{searchQuery}"
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </main>
 
