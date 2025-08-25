@@ -1,21 +1,36 @@
 import { Home, Users, UserPlus, Settings } from "lucide-react";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface NavItem {
   id: string;
   icon: React.ComponentType<{ className?: string }>;
   label: string;
+  path: string;
 }
 
 const navigationItems: NavItem[] = [
-  { id: "home", icon: Home, label: "Home" },
-  { id: "friends", icon: UserPlus, label: "Friends" },
-  { id: "groups", icon: Users, label: "Groups" },
-  { id: "settings", icon: Settings, label: "Settings" },
+  { id: "home", icon: Home, label: "Home", path: "/" },
+  { id: "friends", icon: UserPlus, label: "Friends", path: "/friends" },
+  { id: "groups", icon: Users, label: "Groups", path: "/groups" },
+  { id: "settings", icon: Settings, label: "Settings", path: "/settings" },
 ];
 
 export const BottomNavigation = () => {
-  const [activeTab, setActiveTab] = useState("home");
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const getActiveTab = () => {
+    switch (location.pathname) {
+      case "/": return "home";
+      case "/friends": return "friends";
+      case "/groups": return "groups";
+      case "/settings": return "settings";
+      default: return "home";
+    }
+  };
+  
+  const activeTab = getActiveTab();
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 animate-slide-up">
@@ -28,7 +43,7 @@ export const BottomNavigation = () => {
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => navigate(item.path)}
                 className={`
                   relative flex flex-col items-center gap-1 p-3 rounded-xl transition-all duration-300
                   ${isActive 
